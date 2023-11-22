@@ -46,9 +46,12 @@ Route::get('cursos/{curso}/{categoria?}', function($curso, $categoria = null){
 });
 
 Route::controller(TodoController::class)->group(function(){
-    Route::get('todo', 'index');  //listar los todo's
-    Route::get('todo/create', 'create'); //formulario nueva tarea
-    Route::get('todo/{task}', 'show'); //mostrarme la tarea
+    Route::get('todo', 'index')->name('todo.index');  //listar los todo's
+    Route::get('todo/create', 'create')->name("todo.create"); //formulario nueva tarea
+    Route::get('todo/{task}', 'show')->name("todo.show"); //mostrarme la tarea
+    Route::post('todo', 'store')->name('todo.store');
+    Route::get('todo/{task}/edit', 'edit')->name('todo.edit');
+    Route::put('todo/{task}', 'update')->name('todo.update');
 });
 
 

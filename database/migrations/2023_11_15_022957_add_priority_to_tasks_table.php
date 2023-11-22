@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->enum('priority', ['Bajo', 'Normal', 'Alto'])->after('description');
+            $table->enum('priority', [1, 2, 3])->after('description');
         });
     }
 
