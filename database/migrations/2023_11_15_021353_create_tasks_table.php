@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50); //vachar
+            $table->string('name', 50);
+            $table->string('slug', 100)->unique(); //vachar
             $table->text('description');
             $table->timestamps();
         });

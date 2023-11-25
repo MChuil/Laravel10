@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTask;
+use App\Http\Requests\UpdateTask;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -23,12 +25,19 @@ class TodoController extends Controller
         return view('todo.create');
     }
 
-    public function store(Request $request){
-        $task = new Task();
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->priority = $request->priority;
-        $task->save();
+    public function store(StoreTask $request){
+        // $task = new Task();
+        // $task->name = $request->name;
+        // $task->description = $request->description;
+        // $task->priority = $request->priority;
+        // $task->save();
+        $task = Task::create($request->all());
+        // $task = Task::create([
+        //     'name' => $request->name,
+        //     'description' => $request->description,
+        //     'priority' => $request->priority
+        // ]);
+
         return redirect()->route('todo.show', $task);
     }
 
@@ -36,11 +45,18 @@ class TodoController extends Controller
         return view('todo.edit', compact('task'));
     }
 
-    public function update(Request $request, Task $task){
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->priority = $request->priority;
-        $task->save();
+    public function update(UpdateTask $request, Task $task){
+        // $task->name = $request->name;
+        // $task->description = $request->description;
+        // $task->priority = $request->priority;
+        // $task->save();
+
+        $task = Task::updated($request->all());
         return redirect()->route('todo.show', $task);
+    }
+
+    public function destroy(Task $task){
+        $task->delete();
+        return redirect()->route('todo.index');
     }
 }
